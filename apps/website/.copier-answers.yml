@@ -1,7 +1,7 @@
 # Maintained by Copier — NEVER EDIT MANUALLY.
-_commit: 0.31.0
+_commit: 0.32.0
 _src_path: gh:plexus-ms/preset-app-nextjs
 name: '@plexus-ms/website'
+profile: stateless-app
 tenant: plexus
 
-profile: stateless-app
