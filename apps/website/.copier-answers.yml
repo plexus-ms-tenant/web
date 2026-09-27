@@ -4,3 +4,4 @@ _src_path: gh:plexus-ms/preset-app-nextjs
 name: '@plexus-ms/website'
 tenant: plexus
 
+profile: stateless-app

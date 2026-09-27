@@ -6,8 +6,7 @@ config_roots = ["apps/*", "packages/*"]
 [tools]
 hk = "latest" # Git hooks
 biome = "latest" # formatter and linter
-uv = "latest" # required for ansible and copier
-ansible = { version = "latest", uvx = true } # configuration management
+uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
 
 [settings]
@@ -43,19 +42,8 @@ run = [
     'mise run test ${usage_scope:+"$usage_scope"}',
 ]
 
-[tasks.platform]
-description = "Provision or deploy the operations platform"
-dir = "platform"
-usage = 'arg "<verb>" help="provision (base host: apt, hardening, docker, caddy) or deploy (ingress, apps, secrets)"'
-run = [
-    'ansible-galaxy collection install -r requirements.yml',
-    '''
-case "$usage_verb" in
-    provision|deploy) ./ansible-playbookw "$usage_verb.yml" ;;
-    *) echo "usage: mise platform <provision|deploy>" >&2; exit 2 ;;
-esac
-''',
-]
+# The ops side — playbooks, inventory, secrets pointers — is not here: it lives
+# in the tenant's platform repo (§ 3.6 PLX), generated from plexus-ms/preset-platform.
 
 # Propagation tasks
 
