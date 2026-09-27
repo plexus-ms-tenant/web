@@ -1,4 +1,4 @@
 collections:
   - name: https://github.com/plexus-ms/platform.git#/ansible/
     type: git
-    version: 0.24.0
+    version: 0.25.0
