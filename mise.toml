@@ -43,7 +43,7 @@ run = [
 ]
 
 # The ops side — playbooks, inventory, secrets pointers — is not here: it lives
-# in the tenant's platform repo (§ 3.6 PLX), generated from plexus-ms/preset-platform.
+# in the tenant's platform repo (§ 3.6 PLX), generated from plexus-ms/preset-repo-platform.
 
 # Propagation tasks
 
