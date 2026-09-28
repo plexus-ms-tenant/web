@@ -1,23 +1,26 @@
 services:
   web:
-    image: ${IMAGE}
+    # Pinned by the deploy verb when it renders this file onto the host
+    # (§ 5.3 PLX); the message below is what compose prints if the unrendered
+    # file is run.
+    image: ${PLEXUS_DEPLOYMENT_IMAGE:?rendered by the deploy verb}
     restart: unless-stopped
     environment:
       NODE_ENV: production
-    # Values the platform provides (§ 7.1, § 7.2 PLX): secrets.env holds the
-    # app's secrets, platform.env its non-secret values from the inventory's
-    # apps[].env — plus the PLEXUS_* bindings, which are reserved and harmless
-    # inside the container. Both optional so the file also runs in local dev.
+    # The environment the platform provides (§ 5.3, § 7.2 PLX): .env holds the
+    # non-secret values from the inventory's apps[].env plus the reserved
+    # PLEXUS_* bindings (harmless inside the container), .env.secret the
+    # vault-resolved secrets. Optional so the same file runs in local dev.
     env_file:
-      - path: secrets.env
+      - path: .env
         required: false
-      - path: platform.env
+      - path: .env.secret
         required: false
     ports:
-      # Host port from platform.env (§ 5.4 PLX) — assigned by the platform from
-      # the tenant's inventory, never hardcoded. No fallback: a missing binding
+      # Loopback port from .env (§ 5.4 PLX) — assigned by the platform from the
+      # tenant's inventory, never hardcoded. No fallback: a missing binding
       # fails loudly. Container port stays 3000 (the app's own concern).
-      - "127.0.0.1:${PLEXUS_APP_PORT}:3000"
+      - "127.0.0.1:${PLEXUS_LOOPBACK_PORT}:3000"
     labels:
       plexus.tenant: plexus
     healthcheck:
