@@ -4,8 +4,14 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
+    # Values the platform provides (§ 7.1, § 7.2 PLX): secrets.env holds the
+    # app's secrets, platform.env its non-secret values from the inventory's
+    # apps[].env — plus the PLEXUS_* bindings, which are reserved and harmless
+    # inside the container. Both optional so the file also runs in local dev.
     env_file:
       - path: secrets.env
+        required: false
+      - path: platform.env
         required: false
     ports:
       # Host port from platform.env (§ 5.4 PLX) — assigned by the platform from
