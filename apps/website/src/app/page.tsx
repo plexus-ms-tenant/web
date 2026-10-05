@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { Hero, HeroBody, type HeroContent } from '@/app/hero';
 
 const slogan = 'Standardized, Boring, Yours.';
-const metaDescription = 'Plexus is a collection of opinionated guidelines and approaches in information technology.';
+const metaDescription =
+  'Plexus is a coherent collection of opinionated guidelines and approaches in information technology.';
 
 export const metadata: Metadata = {
   title: `Plexus.ms – ${slogan}`,
