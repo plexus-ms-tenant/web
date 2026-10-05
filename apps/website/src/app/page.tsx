@@ -3,8 +3,7 @@ import type { Metadata } from 'next';
 import { Hero, HeroBody, type HeroContent } from '@/app/hero';
 
 const slogan = 'Standardized, Boring, Yours.';
-const metaDescription =
-  'Plexus is a collection of opinionated guidelines, tools, and approaches for building and self-hosting apps.';
+const metaDescription = 'Plexus is a collection of opinionated guidelines and approaches in information technology.';
 
 export const metadata: Metadata = {
   title: `Plexus.ms – ${slogan}`,
@@ -43,7 +42,7 @@ export default function Home() {
         <p className={cn('mt-6')}>
           <span className={cn('font-bold text-ink dark:text-dark-paper')}>Plexus is our response. </span>
           It forces us to do things properly, to re-use as much as possible, and to standardize as far as possible, so
-          that each new self-hosted project or app adds near-zero overhead. Have a look around{' '}
+          that each new project adds near-zero overhead. Have a look around{' '}
           <a
             className={cn('font-bold text-accent-text underline underline-offset-3 dark:text-dark-accent')}
             rel="noopener noreferrer"
