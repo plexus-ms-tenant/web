@@ -32,9 +32,9 @@ run = 'turbo run dev ${usage_app:+--filter=./apps/$usage_app}'
 
 [tasks.verify]
 description = "Perform all steps that verify code quality"
-# The single verb CI mounts (§ 8.5 PLX) — CI knows this name and no other.
+# The single verb CI mounts (PLX-CI) — CI knows this name and no other.
 # An optional scope forwards to check/test so a CI leg can path-scope to one app
-# plus its dependency packages (§ 8.2 PLX); lint stays cheap and repo-wide.
+# plus its dependency packages (§ 2 PLX-Release); lint stays cheap and repo-wide.
 usage = 'arg "[scope]" help="App or package to verify (e.g. apps/my-app, defaults to all)"'
 run = [
     'mise run lint',
@@ -43,7 +43,7 @@ run = [
 ]
 
 # The ops side — playbooks, inventory, secrets pointers — is not here: it lives
-# in the tenant's platform repo (§ 3.6 PLX), generated from plexus-ms/preset-repo-platform.
+# in the tenant's platform repo (§ 3 PLX-Tenancy), generated from plexus-ms/preset-repo-platform.
 
 # Propagation tasks
 
