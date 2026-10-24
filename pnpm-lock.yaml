@@ -18,8 +18,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       '@plexus-ms/config':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.3.0
+        version: 0.3.0
       turbo:
         specifier: ^2
         version: 2.10.4
@@ -67,8 +67,8 @@ importers:
         version: 4.0.1
     devDependencies:
       '@plexus-ms/config':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.3.0
+        version: 0.3.0
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.2
@@ -483,11 +483,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@plexus-ms/config@0.1.0':
-    resolution: {integrity: sha512-+QSdHFgVK5pu3b27S9M6FdkFKEtlBOMeItE2sQo4n+a6CrhiRX5610Iu5IKHKi+grWbc7oJYVmt7RQD6byPIFA==}
-
-  '@plexus-ms/config@0.2.0':
-    resolution: {integrity: sha512-a8VDGgWqrA3BkAxo5cHwT2eYnRnsaN76P+AsWMKuCtrCNxOgx9Vji2j3pMf2hHFp1XFeFFjvnglfcDF2ygFJbQ==}
+  '@plexus-ms/config@0.3.0':
+    resolution: {integrity: sha512-WVe6kYv+nqIFEsuUKL/EE9DQtAfE1TzuOXunHRxLVB4vEqJNbtlGhgQOOO6ZqN1frjuT5awW6FYRGLu0tROKXA==}
 
   '@plexus-ms/std@0.1.0':
     resolution: {integrity: sha512-/Iv6mw1CrdBV1VpSSk5Mk9UZqkBuivviwyZ5az0tZyprs5qjxeTIwBak16ypAFC55NkA9MbSwNlfl1loUopAKQ==}
@@ -2090,9 +2087,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.4.3':
     optional: true
 
-  '@plexus-ms/config@0.1.0': {}
-
-  '@plexus-ms/config@0.2.0': {}
+  '@plexus-ms/config@0.3.0': {}
 
   '@plexus-ms/std@0.1.0':
     dependencies:
