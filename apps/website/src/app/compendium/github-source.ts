@@ -27,8 +27,18 @@ async function fetchWithRetry(url: string, accept?: string): Promise<Response> {
   }
 }
 
+// Files are read at the commit REF points to, never at REF itself: GitHub's raw CDN caches a
+// branch path for minutes, so a revalidation right after a push would re-cache the old content.
+// A commit path is immutable, and the API answers this lookup from origin.
+async function commit(): Promise<string> {
+  const res = await fetchWithRetry(`https://api.github.com/repos/${REPO}/commits/${REF}`, 'application/vnd.github.sha');
+  if (!res.ok) throw new Error(`Compendium ref lookup failed for ${REF}: ${res.status} ${res.statusText}`);
+  return (await res.text()).trim();
+}
+
 async function list(): Promise<string[]> {
-  const res = await fetchWithRetry(`https://api.github.com/repos/${REPO}/git/trees/${REF}?recursive=1`);
+  const sha = await commit();
+  const res = await fetchWithRetry(`https://api.github.com/repos/${REPO}/git/trees/${sha}?recursive=1`);
   if (!res.ok) throw new Error(`Compendium tree fetch failed: ${res.status} ${res.statusText}`);
   const { tree } = (await res.json()) as { tree: TreeEntry[] };
   return tree.filter((entry) => entry.type === 'blob' && /\.mdx?$/.test(entry.path)).map((entry) => entry.path);
@@ -36,12 +46,13 @@ async function list(): Promise<string[]> {
 
 // With a token, the API contents endpoint allows 5000 req/h; the anonymous raw CDN rate-limits bursts per IP.
 async function read(path: string): Promise<string> {
+  const sha = await commit();
   const res = TOKEN
     ? await fetchWithRetry(
-        `https://api.github.com/repos/${REPO}/contents/${path}?ref=${REF}`,
+        `https://api.github.com/repos/${REPO}/contents/${path}?ref=${sha}`,
         'application/vnd.github.raw+json',
       )
-    : await fetchWithRetry(`https://raw.githubusercontent.com/${REPO}/${REF}/${path}`);
+    : await fetchWithRetry(`https://raw.githubusercontent.com/${REPO}/${sha}/${path}`);
   if (!res.ok) throw new Error(`Compendium fetch failed for ${path}: ${res.status} ${res.statusText}`);
   return res.text();
 }
