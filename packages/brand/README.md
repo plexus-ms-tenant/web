@@ -2,7 +2,7 @@
 
 The Plexus visual identity as a versioned dependency: the PLX-02 "Crossing" mark,
 design tokens, and React components. The human-readable spec lives in the
-compendium at [`plexus/brand`](https://github.com/plexus-ms/compendium/tree/main/plexus/brand);
+compendium at [`miscellaneous/brand`](https://github.com/plexus-ms/compendium/tree/main/miscellaneous/brand);
 this package is the machine-readable source of truth for assets.
 
 ## What's inside

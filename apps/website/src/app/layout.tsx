@@ -4,7 +4,7 @@ import './globals.css';
 import Header from './header';
 import { Providers } from './providers';
 
-// The brand's two faces (compendium: plexus/brand). Mono carries the voice
+// The brand's two faces (compendium: miscellaneous/brand). Mono carries the voice
 // (display, labels, wordmark, code), sans carries the reading.
 const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],

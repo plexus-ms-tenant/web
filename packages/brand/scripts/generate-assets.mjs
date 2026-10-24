@@ -4,7 +4,7 @@
  * geometry constants. The over-under gap is cut geometrically (real sub-paths,
  * not a ground-colored halo) so every asset works on any background.
  *
- * Spec: compendium plexus/brand — PLX-02 "The Crossing".
+ * Spec: compendium miscellaneous/brand — PLX-02 "The Crossing".
  *   - Rising strand passes over; the descending strand is cut.
  *   - Visible gap: 0.5× stroke per side. With round caps that puts the cut
  *     endpoints at a centerline clearance of (stroke + haloWidth) / 2 from the

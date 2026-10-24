@@ -1,6 +1,6 @@
 /**
  * Plexus design tokens — the palette, faces, and scale decided in the brand kit
- * (compendium: plexus/brand). Decided once here, propagated everywhere.
+ * (compendium: miscellaneous/brand). Decided once here, propagated everywhere.
  */
 
 /** Raw palette. These never flip with the color scheme. */
