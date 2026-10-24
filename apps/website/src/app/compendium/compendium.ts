@@ -58,6 +58,17 @@ function navTitle(content: string, fallback: string): string {
   return frontmatterField(content, 'short_title') ?? frontmatterField(content, 'title') ?? fallback;
 }
 
+// Module codes (PLX-Repo, …) resolved to their pages, so a module's depends/consumes render as links.
+export async function getModuleRoutes(): Promise<Map<string, string>> {
+  const docs = await listDocs();
+  const routes = new Map<string, string>();
+  for (const doc of docs) {
+    const code = frontmatterField(await readDoc(doc.path), 'code');
+    if (code) routes.set(code, `/compendium/${doc.slug.join('/')}`);
+  }
+  return routes;
+}
+
 export interface NavItem {
   href: string;
   title: string;

@@ -6,6 +6,8 @@ import { Callout } from './callout';
 import { DocLink } from './doc-link';
 import { Pre } from './pre';
 
+export type ModuleMaturity = 'note' | 'candidate' | 'standard';
+
 export interface DocFrontmatter {
   title?: string;
   short_title?: string;
@@ -13,6 +15,13 @@ export interface DocFrontmatter {
   version?: string;
   timestamp?: string;
   authors?: string | string[];
+  // Module fields (§ 1.3 PLX): present on every page under contracts/ and approaches/.
+  code?: string;
+  maturity?: ModuleMaturity;
+  binds?: string;
+  depends?: string[];
+  consumes?: string[];
+  changed?: string;
 }
 
 export interface DocHeading {

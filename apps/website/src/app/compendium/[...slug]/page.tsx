@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { findDoc, getNavigation, listDocs, readDoc } from '../compendium';
+import { findDoc, getModuleRoutes, getNavigation, listDocs, readDoc } from '../compendium';
+import { ModuleFacts } from '../module-facts';
 import { PrevNextLinks } from '../prev-next-links';
 import { Prose } from '../prose';
 import { compileDoc } from '../render';
@@ -30,10 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DocPage({ params }: Props) {
   const doc = await findDoc((await params).slug);
   if (!doc) notFound();
-  const [{ content, frontmatter, headings }, sections] = await Promise.all([
+  const [{ content, frontmatter, headings }, sections, routes] = await Promise.all([
     readDoc(doc.path).then((source) => compileDoc(source, doc.format, doc.path)),
     getNavigation(),
+    getModuleRoutes(),
   ]);
+  // The folder is the module's kind (§ 1.3 PLX); pages elsewhere are not modules and get no facts.
+  const kind = doc.slug[0] === 'contracts' ? 'contract' : doc.slug[0] === 'approaches' ? 'approach' : undefined;
   const href = `/compendium/${doc.slug.join('/')}`;
   const section = sections.find((s) => s.items.some((item) => item.href === href));
   const authors = [frontmatter.authors].flat().filter(Boolean) as string[];
@@ -65,6 +69,7 @@ export default async function DocPage({ params }: Props) {
               {frontmatter.title}
             </h1>
             {meta.length > 0 && <p className="text-sm text-ink-soft dark:text-dark-soft">{meta.join(' · ')}</p>}
+            {kind && <ModuleFacts frontmatter={frontmatter} kind={kind} routes={routes} />}
           </header>
           <Prose>{content}</Prose>
         </article>
