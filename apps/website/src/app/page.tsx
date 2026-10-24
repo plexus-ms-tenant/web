@@ -18,8 +18,8 @@ const content: HeroContent = {
     description: `${metaDescription} Hoping that others might also find it useful, we've made it public.`,
   },
   actions: {
-    primary: { label: 'Read the manifesto', href: '/compendium/plexus/manifesto' },
-    secondary: { label: 'Adopt the standard', href: '/compendium/plexus/standard' },
+    primary: { label: 'Read the manifesto', href: '/compendium/essentials/manifesto' },
+    secondary: { label: 'Adopt the standard', href: '/compendium/essentials/standard' },
   },
   testimonial: {
     quote:
