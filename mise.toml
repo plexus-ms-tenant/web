@@ -22,6 +22,10 @@ postinstall = "hk install --mise && npx corepack enable"
 _.path = ["{{config_root}}/node_modules/.bin"]
 
 
+[tasks.promote]
+description = "Promote staging to prod: fast-forward main to what is on develop (§ 1 PLX-Release); refused unless it is a fast-forward"
+run = 'git fetch -q origin && git push origin origin/develop:refs/heads/main'
+
 # Contract verbs
 
 [tasks.dev]
