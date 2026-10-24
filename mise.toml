@@ -5,7 +5,7 @@ config_roots = ["apps/*", "packages/*"]
 
 [tools]
 hk = "latest" # Git hooks
-biome = "latest" # formatter and linter
+biome = "2.5.1" # formatter and linter; pinned to the schema version biome.json targets, bumped by the update bot
 uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
 
