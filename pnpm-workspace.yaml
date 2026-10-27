@@ -6,4 +6,4 @@ allowBuilds:
 catalog:
   typescript: ^6.0.3
 minimumReleaseAgeExclude:
-  - '@plexus-ms/config@0.1.0 || 0.2.0'
+  - '@plexus-ms/config@0.1.0 || 0.2.0 || 0.3.1'
