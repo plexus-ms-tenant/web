@@ -3,3 +3,4 @@ _commit: 0.68.0
 _src_path: gh:plexus-ms/preset-repo-web
 tenant: plexus
 
+renovate_reviewers: davidjalbers
