@@ -1,7 +1,7 @@
 {
   "name": "plexus",
   "private": true,
-  "packageManager": "pnpm@11.28.9",
+  "packageManager": "pnpm@12.15.0",
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
     "@plexus-ms/config": "^0.3.1",
