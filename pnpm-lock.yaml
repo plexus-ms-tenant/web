@@ -194,8 +194,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/brand
       '@plexus-ms/std':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.2.1
+        version: 0.2.1
       '@shikijs/rehype':
         specifier: ^4.5.0
         version: 4.5.0
@@ -669,8 +669,8 @@ packages:
   '@plexus-ms/config@0.3.1':
     resolution: {integrity: sha512-QtC00r5gHbvYfKcTzPfB6LvUP0ROjVfDaFR1+W9yLawVjpaHJGAQxyFX3FIxk8h6b51wI5zoagm97C4d+YkuPA==}
 
-  '@plexus-ms/std@0.2.0':
-    resolution: {integrity: sha512-4bfawp9Nx6f0CNoxx+OQd5m4gXXoxRjaxa5b0gdm0aWVeHn+MZDIXxzEkfgdmpSLawhu5wnKOg3Ptcj9tLfq4Q==}
+  '@plexus-ms/std@0.2.1':
+    resolution: {integrity: sha512-61Xk8EkTNHzk5/M7UVjqDctOV0Gf/IBaydNnquMTSpI+8Q/DI/UFgn815vuzRb9SGNEZmoE/kL9qOV+8r83X5A==}
 
   '@react-aria/focus@3.22.1':
     resolution: {integrity: sha512-CPxtkyrBi/HYY5P3lE/57sQ6qfa0lN8E55TOm89H0kNGv0lKt+/0zP7lWERzBjRr5IxBVrQX4gFEowBN52LPaA==}
@@ -1875,8 +1875,8 @@ packages:
   tabbable@6.5.0:
     resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
 
-  tailwind-merge@3.6.0:
-    resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
+  tailwind-merge@3.7.0:
+    resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
 
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
@@ -2301,10 +2301,10 @@ snapshots:
 
   '@plexus-ms/config@0.3.1': {}
 
-  '@plexus-ms/std@0.2.0':
+  '@plexus-ms/std@0.2.1':
     dependencies:
       clsx: 2.1.1
-      tailwind-merge: 3.6.0
+      tailwind-merge: 3.7.0
 
   '@react-aria/focus@3.22.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
@@ -3923,7 +3923,7 @@ snapshots:
 
   tabbable@6.5.0: {}
 
-  tailwind-merge@3.6.0: {}
+  tailwind-merge@3.7.0: {}
 
   tailwindcss@4.3.3: {}
 
