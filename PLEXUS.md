@@ -1,4 +1,4 @@
 ---
-plexus: 0.71.0
+plexus: 0.72.0
 modules: [PLX-Repo, PLX-JS, PLX-Delivery, PLX-Updates]
 ---
