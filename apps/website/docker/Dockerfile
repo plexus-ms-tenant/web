@@ -15,14 +15,15 @@ WORKDIR /repo
 ENV CI=1
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable
-# Populate virtual pnpm store (see https://pnpm.io/cli/fetch)
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+# Populate virtual pnpm store (see https://pnpm.io/cli/fetch);
+# package.json comes along so that corepack runs the pnpm pinned in packageManager here too
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm fetch
-# Copy sources and install dependencies from virtual store
-COPY package.json turbo.json ./
+# Copy sources and install dependencies from the virtual store, exactly as the lockfile says
+COPY turbo.json ./
 COPY packages packages
 COPY apps/${APP} apps/${APP}
-RUN pnpm install --offline
+RUN pnpm install --frozen-lockfile --prefer-offline
 # Build
 RUN pnpm exec turbo run build --filter=./apps/${APP}
 
