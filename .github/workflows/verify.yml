@@ -16,7 +16,7 @@ permissions:
 # GitHub's runners with the next push.
 jobs:
   verify:
-    uses: plexus-ms/ci-cd/.github/workflows/_verify.yml@0.68.0
+    uses: plexus-ms/ci-cd/.github/workflows/_verify.yml@0.69.0
     with:
       runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
       persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
