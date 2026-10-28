@@ -22,7 +22,7 @@ _.path = ["{{config_root}}/node_modules/.bin"]
 
 
 [tasks.promote]
-description = "Promote staging to prod: fast-forward main to what is on develop (§ 1 PLX-Release); refused unless it is a fast-forward"
+description = "Promote staging to prod: fast-forward main to what is on develop (§ 3 PLX-Delivery); refused unless it is a fast-forward"
 run = 'git fetch -q origin && git push origin origin/develop:refs/heads/main'
 
 # Contract verbs
@@ -35,9 +35,11 @@ run = 'turbo run dev ${usage_app:+--filter=./apps/$usage_app}'
 
 [tasks.verify]
 description = "Perform all steps that verify code quality"
-# The single verb CI mounts (PLX-CI) — CI knows this name and no other.
-# An optional scope forwards to check/test so a CI leg can path-scope to one app
-# plus its dependency packages (§ 2 PLX-Release); lint stays cheap and repo-wide.
+# The one verb the pipeline mounts (§ 1 PLX-Delivery) — it knows this name and
+# no other. An optional scope forwards to check/test so a pipeline leg can
+# path-scope to one app plus its dependency packages (§ 3 PLX-Delivery); lint
+# stays cheap and repo-wide. lint, check and test are the sub-verbs of § 3
+# PLX-Repo: lint on pre-commit, check on pre-push, test here.
 usage = 'arg "[scope]" help="App or package to verify (e.g. apps/my-app, defaults to all)"'
 run = [
     'mise run lint',

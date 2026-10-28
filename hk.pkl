@@ -17,9 +17,6 @@ hooks {
       ["check"] {
         check = "mise :check"
       }
-      ["test"] {
-        check = "mise :test"
-      }
     }
   }
 }
