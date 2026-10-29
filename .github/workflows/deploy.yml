@@ -19,7 +19,7 @@ permissions:
 # Where the jobs run: see verify.yml.
 jobs:
   changed-apps:
-    uses: plexus-ms/ci-cd/.github/workflows/_changed-apps.yml@0.75.0
+    uses: plexus-ms/ci-cd/.github/workflows/_changed-apps.yml@0.76.0
     with:
       runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
 
@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         app: ${{ fromJSON(needs.changed-apps.outputs.apps) }}
-    uses: plexus-ms/ci-cd/.github/workflows/_pipeline.yml@0.75.0
+    uses: plexus-ms/ci-cd/.github/workflows/_pipeline.yml@0.76.0
     with:
       tenant: plexus
       app: ${{ matrix.app }}
