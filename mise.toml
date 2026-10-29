@@ -11,7 +11,7 @@ copier = { version = "latest", uvx = true } # template management
 # (§ 3 PLX-Delivery). The initiative's own package, published from
 # plexus-ms/packages with provenance and bumped by the update bot; the
 # trust-policy approval only waives npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.6.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.8.1", allow_low_downloads = true }
 
 [settings]
 # Install node from .node-version
