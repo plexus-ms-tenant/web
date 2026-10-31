@@ -176,8 +176,8 @@ importers:
         specifier: 2.6.3
         version: 2.6.3
       '@plexus-ms/config':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: 0.100.0
+        version: 0.100.0
       turbo:
         specifier: ^2.11.10
         version: 2.11.10
@@ -225,8 +225,8 @@ importers:
         version: 4.0.1
     devDependencies:
       '@plexus-ms/config':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: 0.100.0
+        version: 0.100.0
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.3
@@ -666,8 +666,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@plexus-ms/config@0.3.1':
-    resolution: {integrity: sha512-QtC00r5gHbvYfKcTzPfB6LvUP0ROjVfDaFR1+W9yLawVjpaHJGAQxyFX3FIxk8h6b51wI5zoagm97C4d+YkuPA==}
+  '@plexus-ms/config@0.100.0':
+    resolution: {integrity: sha512-XeVg/Mjgk2JGbgVErwHvHhzre+rh7Y4WuWacScOL1VApW7D7qmVsBDXwiuhXlTnAoy2MPEUPRMX5oGW9L9kPWg==}
 
   '@plexus-ms/std@0.2.2':
     resolution: {integrity: sha512-7xFvS0rk07lhVgnuoNVCg4znsUc1BH31pRmtxtMaW5DPeylmvuj+tX/TS78CdFGb5C5aZ41OECg/nKJRt9MHkw==}
@@ -2299,7 +2299,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.4.3':
     optional: true
 
-  '@plexus-ms/config@0.3.1': {}
+  '@plexus-ms/config@0.100.0': {}
 
   '@plexus-ms/std@0.2.2':
     dependencies:

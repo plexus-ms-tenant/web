@@ -1,4 +1,4 @@
 ---
-plexus: 0.76.0
+plexus: 0.100.0
 modules: [PLX-App, PLX-AppStateless]
 ---
