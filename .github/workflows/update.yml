@@ -1,0 +1,43 @@
+name: update
+
+# Mounts the update verb (§ 3 PLX-Updates): this repo takes the train itself.
+# Once a day, and on demand, `plx update` asks for the newest train and, when
+# the repo is behind it, opens the train's pull request on plexus/<version>:
+# copier update at every site, the marker, the lockfile, the workflow refs. The
+# same pull request the maintainers' `plx ship` opens; whichever arrives first
+# opens it, and a branch already on origin is left alone. Managed by copier:
+# edit the preset (plexus-ms/preset-repo-web), never this file.
+#
+# The push and the pull request need an identity of the tenant's own: a GitHub
+# App installed on this repo with contents and pull requests write, its ID in
+# the repo or organisation variable PLX_APP_ID and its private key in the
+# secret PLX_APP_PRIVATE_KEY (the same app the changeset job of a package repo
+# pushes with). Until the variable is set the job is skipped, not failed.
+
+on:
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+    inputs:
+      train:
+        description: "The train to take (default: the newest)"
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Where the jobs run: see verify.yml.
+jobs:
+  update:
+    if: ${{ vars.PLX_APP_ID != '' }}
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.102.0
+    with:
+      train: ${{ inputs.train || '' }}
+      app_id: ${{ vars.PLX_APP_ID }}
+      runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+      persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
+    secrets:
+      app_private_key: ${{ secrets.PLX_APP_PRIVATE_KEY }}
+
