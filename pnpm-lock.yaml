@@ -194,8 +194,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/brand
       '@plexus-ms/std':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.2.2
+        version: 0.2.2
       '@shikijs/rehype':
         specifier: ^4.5.0
         version: 4.5.0
@@ -669,8 +669,8 @@ packages:
   '@plexus-ms/config@0.100.0':
     resolution: {integrity: sha512-XeVg/Mjgk2JGbgVErwHvHhzre+rh7Y4WuWacScOL1VApW7D7qmVsBDXwiuhXlTnAoy2MPEUPRMX5oGW9L9kPWg==}
 
-  '@plexus-ms/std@0.2.1':
-    resolution: {integrity: sha512-61Xk8EkTNHzk5/M7UVjqDctOV0Gf/IBaydNnquMTSpI+8Q/DI/UFgn815vuzRb9SGNEZmoE/kL9qOV+8r83X5A==}
+  '@plexus-ms/std@0.2.2':
+    resolution: {integrity: sha512-7xFvS0rk07lhVgnuoNVCg4znsUc1BH31pRmtxtMaW5DPeylmvuj+tX/TS78CdFGb5C5aZ41OECg/nKJRt9MHkw==}
 
   '@react-aria/focus@3.22.1':
     resolution: {integrity: sha512-CPxtkyrBi/HYY5P3lE/57sQ6qfa0lN8E55TOm89H0kNGv0lKt+/0zP7lWERzBjRr5IxBVrQX4gFEowBN52LPaA==}
@@ -2301,7 +2301,7 @@ snapshots:
 
   '@plexus-ms/config@0.100.0': {}
 
-  '@plexus-ms/std@0.2.1':
+  '@plexus-ms/std@0.2.2':
     dependencies:
       clsx: 2.1.1
       tailwind-merge: 3.7.0
