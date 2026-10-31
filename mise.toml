@@ -9,16 +9,10 @@ uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
 # plx: the ops verbs the reusable workflows mount — changed-apps, deploy-targets, deploy
 # (§ 3 PLX-Delivery). The initiative's own package, published from
-<<<<<<< before updating
-# plexus-ms/packages with provenance and bumped by the update bot; the
-# trust-policy approval only waives npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.9.0", allow_low_downloads = true }
-=======
 # plexus-ms/primitives at the train number and pinned by the train, never by
 # the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
 "npm:@plexus-ms/cli" = { version = "0.100.0", allow_low_downloads = true }
->>>>>>> after updating
 
 [settings]
 # Install node from .node-version
