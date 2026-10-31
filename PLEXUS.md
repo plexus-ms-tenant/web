@@ -1,4 +1,4 @@
 ---
-plexus: 0.100.0
+plexus: 0.101.0
 modules: [PLX-Repo, PLX-JS, PLX-Delivery, PLX-Updates]
 ---

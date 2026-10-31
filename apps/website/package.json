@@ -24,7 +24,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@plexus-ms/config": "0.100.0",
+    "@plexus-ms/config": "catalog:plexus",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^26.6.5",
