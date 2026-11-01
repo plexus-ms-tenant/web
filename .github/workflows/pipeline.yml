@@ -46,7 +46,7 @@ jobs:
     concurrency:
       group: verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.104.0
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.105.0
     with:
       runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
       persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
@@ -59,7 +59,7 @@ jobs:
 
   changed-apps:
     if: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') }}
-    uses: plexus-ms/primitives/.github/workflows/_changed-apps.yml@0.104.0
+    uses: plexus-ms/primitives/.github/workflows/_changed-apps.yml@0.105.0
     with:
       runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
 
@@ -74,7 +74,7 @@ jobs:
       fail-fast: false
       matrix:
         app: ${{ fromJSON(needs.changed-apps.outputs.apps) }}
-    uses: plexus-ms/primitives/.github/workflows/_pipeline.yml@0.104.0
+    uses: plexus-ms/primitives/.github/workflows/_pipeline.yml@0.105.0
     with:
       tenant: plexus
       app: ${{ matrix.app }}

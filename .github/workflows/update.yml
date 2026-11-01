@@ -32,7 +32,7 @@ permissions:
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.104.0
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.105.0
     with:
       train: ${{ inputs.train || '' }}
       app_id: ${{ vars.PLX_APP_ID }}
