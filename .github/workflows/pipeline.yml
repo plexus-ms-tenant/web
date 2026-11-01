@@ -1,0 +1,76 @@
+name: pipeline
+
+# Mounts the verbs on the two occasions of an app repo (§§ 2 and 3
+# PLX-Delivery). A pull request asks "is the repo sound", and `verify`
+# answers it repo-wide, tested as the merge result. A push to an environment
+# branch asks "may this ship", per app: `changed-apps` emits the apps whose
+# sources changed, and `app` fans the per-app pipeline (verify → release →
+# deploy) over exactly those; a shared-package change redeploys its
+# dependents, and an app whose image for the commit is already in the
+# registry is deployed without being built again, which is what a promotion
+# of `main` to a `develop` tip built there amounts to. Deploying needs a host:
+# `main` deploys to DEPLOY_HOST, `develop` releases and stops until a staging
+# host exists. A push to any other branch starts nothing until it has a pull
+# request, and a change to nothing but Markdown starts nothing at all.
+# Run it by hand on an environment branch to deploy that branch again.
+# Managed by copier: edit the preset (plexus-ms/preset-repo-web), never this
+# file.
+
+on:
+  pull_request:
+    paths-ignore: ['**/*.md']
+  push:
+    branches: [main, develop]
+    paths-ignore: ['**/*.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+# Where the jobs run (repo variables): CI_RUNNER is the runner label, unset
+# for GitHub's runners; CI_RUNNER_PERSISTENT is `true` when that runner keeps
+# its disk between jobs, so caches stay local. Unset both to be back on
+# GitHub's runners with the next push.
+jobs:
+  verify:
+    # Pull requests, and a run by hand on a branch that names no environment.
+    if: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop') }}
+    # One run per pull request: a newer push cancels the verify still going
+    # for the older commit, whose verdict nobody waits for any more.
+    concurrency:
+      group: verify-${{ github.ref }}
+      cancel-in-progress: true
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.103.0
+    with:
+      runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+      persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
+
+  changed-apps:
+    if: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') }}
+    uses: plexus-ms/primitives/.github/workflows/_changed-apps.yml@0.103.0
+    with:
+      runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+
+  # Superseded runs are cancelled inside _pipeline.yml, per app and at the
+  # verify job only, never here: cancelling this job would cancel a deploy in
+  # flight.
+  app:
+    needs: changed-apps
+    # Empty matrix is an error, not a no-op — skip the job when nothing changed.
+    if: ${{ needs.changed-apps.outputs.apps != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJSON(needs.changed-apps.outputs.apps) }}
+    uses: plexus-ms/primitives/.github/workflows/_pipeline.yml@0.103.0
+    with:
+      tenant: plexus
+      app: ${{ matrix.app }}
+      deploy: ${{ github.ref == 'refs/heads/main' }}
+      host: ${{ vars.DEPLOY_HOST }}
+      runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
+      persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
+    secrets:
+      ssh-key: ${{ secrets.DEPLOY_SSH_KEY }}
+

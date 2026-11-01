@@ -12,7 +12,7 @@ copier = { version = "latest", uvx = true } # template management
 # plexus-ms/primitives at the train number and pinned by the train, never by
 # the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.102.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.103.0", allow_low_downloads = true }
 
 [settings]
 # Install node from .node-version
