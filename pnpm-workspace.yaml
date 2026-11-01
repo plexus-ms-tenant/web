@@ -15,4 +15,4 @@ minimumReleaseAgeExclude:
 # the update bot leaves it alone.
 catalogs:
   plexus:
-    "@plexus-ms/config": 0.103.0
+    "@plexus-ms/config": 0.104.0
