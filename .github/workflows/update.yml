@@ -28,11 +28,11 @@ permissions:
   contents: write
   pull-requests: write
 
-# Where the jobs run: see verify.yml.
+# Where the jobs run: see pipeline.yml.
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.102.0
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.103.0
     with:
       train: ${{ inputs.train || '' }}
       app_id: ${{ vars.PLX_APP_ID }}
