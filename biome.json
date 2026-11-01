@@ -1,4 +1,5 @@
 {
+<<<<<<< before updating
   "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
   "extends": ["@plexus-ms/config/biome"],
   "overrides": [
@@ -9,4 +10,8 @@
       }
     }
   ]
+=======
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@plexus-ms/config/biome"]
+>>>>>>> after updating
 }
