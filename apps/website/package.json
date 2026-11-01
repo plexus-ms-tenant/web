@@ -9,7 +9,6 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-<<<<<<< before updating
     "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.2.0",
     "@plexus-ms/brand": "workspace:*",
@@ -23,12 +22,6 @@
     "react-dom": "19.3.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1"
-=======
-    "@plexus-ms/std": "^0.2.0",
-    "next": "^16",
-    "react": "^19",
-    "react-dom": "^19"
->>>>>>> after updating
   },
   "devDependencies": {
     "@plexus-ms/config": "catalog:plexus",
