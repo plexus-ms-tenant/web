@@ -4,6 +4,7 @@ monorepo_root = true
 config_roots = ["apps/*", "packages/*"]
 
 [tools]
+node = "24" # the runtime; actions/setup-node reads it from here too
 hk = "latest" # Git hooks
 uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
@@ -12,15 +13,20 @@ copier = { version = "latest", uvx = true } # template management
 # plexus-ms/primitives at the train number and pinned by the train, never by
 # the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.106.1", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.107.0", allow_low_downloads = true }
 
 [settings]
-# Install node from .node-version
+# Not a version source: node is pinned in [tools]. It makes package.json one of
+# node's idiomatic files, which is what lets [monorepo].config_roots match a
+# packages/* (or apps/*) directory that has no mise config of its own; without
+# it `mise install --monorepo` fails in a repo whose roots are only packages.
 idiomatic_version_file_enable_tools = ["node"]
 
 [hooks]
 # Wire up Git hooks and get pnpm from packageManager
-postinstall = "hk install --mise && npx corepack enable"
+# On a CI runner whose mise installs only the tools a job names, hk is absent
+# and the hook is not needed; it stays silent instead of failing.
+postinstall = "if command -v hk >/dev/null; then hk install --mise; fi && npx corepack enable"
 
 [env]
 # Command lines will be "turbo build" instead of "pnpm exec turbo build".

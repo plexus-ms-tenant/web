@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "globalDependencies": [".node-version"],
+  "globalDependencies": ["mise.toml"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

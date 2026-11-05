@@ -7,9 +7,7 @@
 #   empty packages/ exists for an app that uses none. The app folder is
 #   selected via build arg.
 # - The base image is pinned by digest, so that the same inputs give the same
-#   image; the update bot moves tag and digest together. NODE_VERSION, which
-#   the forge strategy's release still passes from .node-version, is accepted
-#   and not used.
+#   image; the update bot moves tag and digest together.
 # - BUILD_HASH, when given, becomes Next's build ID (next.config.ts), and the
 #   secret next-server-actions-encryption-key fixes the key Next would
 #   otherwise draw at random; without them a build is as random as before.
@@ -17,8 +15,6 @@
 # Usage, invoked from repo root:
 #   docker build --build-arg APP=website --platform linux/arm64 -t acme/website .
 #
-ARG NODE_VERSION
-
 # ── BUILD ─────────────────────────────────────────────────────────────────
 FROM node:24-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c AS builder
 ARG APP
