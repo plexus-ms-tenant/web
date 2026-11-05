@@ -1,6 +1,7 @@
 # Maintained by Copier — NEVER EDIT MANUALLY.
-_commit: 0.105.0
+_commit: 0.106.0
 _src_path: gh:plexus-ms/preset-repo-web
+ci_strategy: forge
 publishes_packages: false
 renovate_reviewers: davidjalbers
 tenant: plexus

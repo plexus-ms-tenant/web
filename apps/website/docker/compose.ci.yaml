@@ -1,0 +1,19 @@
+# The CI override of compose.yaml, read by `plx-ci test` beside it on a
+# throwaway test runner (§ 8 PLX-Delivery, cloud strategy): the candidate image
+# arrives as PLEXUS_DEPLOYMENT_IMAGE and the app's port as
+# PLEXUS_LOOPBACK_PORT, as the deploy verb and the platform would hand them
+# over; this file stands in for .env and .env.secret with throwaway values.
+# The specs run on the runner, outside the stack, with CI, PLEXUS_LOOPBACK_PORT
+# and E2E_BASE_URL set, and whatever x-plexus-ci.env adds (the stack's
+# database, say, published to the runner). The deploy verb never reads this
+# file. An app without a `test` script has no use for it.
+x-plexus-ci:
+  env: {}
+
+x-ci-env: &ci-env
+  PUBLIC_URL: http://127.0.0.1:${PLEXUS_LOOPBACK_PORT}
+
+services:
+  web:
+    environment: *ci-env
+    restart: "no"
