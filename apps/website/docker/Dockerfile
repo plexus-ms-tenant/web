@@ -31,15 +31,18 @@ COPY turbo.json ./
 COPY packages packages
 COPY apps/${APP} apps/${APP}
 RUN pnpm install --frozen-lockfile --prefer-offline
-# Build the one app with pnpm, not through Turbo: the context may hold this
-# app alone, and Turbo's strict environment would hide BUILD_HASH and the key
-# from `next build`. Next's preview-mode keys cannot be fixed from outside:
-# it reads them from a cache file it refuses to use inside a container, so
-# they stay random, the one known difference between two builds of the same
-# inputs besides what the image's own layers carry.
+# Build the app with pnpm, not through Turbo: the context may hold this app
+# alone, and Turbo's strict environment would hide BUILD_HASH and the key
+# from `next build`. The filter's trailing `...` builds the app's workspace
+# dependencies first, in order, as Turbo's `^build` would: a package that
+# exports from `dist/` is built before the app resolves it, and one without a
+# build script is skipped. Next's preview-mode keys cannot be fixed from
+# outside: it reads them from a cache file it refuses to use inside a
+# container, so they stay random, the one known difference between two
+# builds of the same inputs besides what the image's own layers carry.
 ARG BUILD_HASH
 RUN --mount=type=secret,id=next-server-actions-encryption-key,env=NEXT_SERVER_ACTIONS_ENCRYPTION_KEY \
-    BUILD_HASH=${BUILD_HASH} pnpm --filter ./apps/${APP} run build
+    BUILD_HASH=${BUILD_HASH} pnpm --filter "{./apps/${APP}}..." run build
 
 # ── RUNTIME ─────────────────────────────────────────────────────────────────
 FROM node:24-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c AS runner
