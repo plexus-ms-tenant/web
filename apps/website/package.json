@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "@plexus-ms/brand": "workspace:*",
     "@plexus-ms/std": "^0.2.2",
-    "@shikijs/rehype": "^4.5.0",
+    "@shikijs/rehype": "^4.6.0",
     "mermaid": "^12.2.0",
     "next": "16.4.3",
     "next-mdx-remote": "^6.0.0",
