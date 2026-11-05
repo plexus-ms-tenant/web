@@ -1,3 +1,9 @@
+# A stateful app (PLX-AppStateful) adds its data services below and keeps
+# their data in named volumes (a top-level `volumes:` block), never in
+# bind-mounted ./data/<service> directories: a bind mount's first start makes
+# Docker create the directory as root, which an image running unprivileged
+# cannot write, while a named volume takes the ownership of the image's mount
+# point and needs no chown on the host (§ 1 PLX-AppStateful).
 services:
   web:
     # Pinned by the deploy verb when it renders this file onto the host
