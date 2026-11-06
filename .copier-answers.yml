@@ -1,5 +1,5 @@
 # Maintained by Copier — NEVER EDIT MANUALLY.
-_commit: 0.109.0
+_commit: 0.110.0
 _src_path: gh:plexus-ms/preset-repo-web
 ci_strategy: forge
 publishes_packages: false
