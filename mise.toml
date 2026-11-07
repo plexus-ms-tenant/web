@@ -8,12 +8,15 @@ node = "24" # the runtime; actions/setup-node reads it from here too
 hk = "latest" # Git hooks
 uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
-# plx: the ops verbs the reusable workflows mount — changed-apps, deploy-targets, deploy
-# (§ 3 PLX-Delivery). The initiative's own package, published from
+# plx: the ops verbs the reusable workflows mount — deploy-targets, deploy
+# (§ 6 PLX-Delivery). The initiative's own package, published from
 # plexus-ms/primitives at the train number and pinned by the train, never by
 # the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
 "npm:@plexus-ms/cli" = { version = "0.110.0", allow_low_downloads = true }
+# plx-ci: the CI verbs, plan, build, test and publish (§ 8 PLX-Delivery), the
+# same package family at the same train number.
+"npm:@plexus-ms/cli-ci" = { version = "0.110.0", allow_low_downloads = true }
 
 [settings]
 # Not a version source: node is pinned in [tools]. It makes package.json one of

@@ -1,0 +1,31 @@
+name: housekeeping
+
+# The daily housekeeping of this repo's CI (§ 8 PLX-Delivery): the candidates
+# its runs leave in the forge's registry, the images tagged build-<hash> and
+# test-<hash> alone, go when they are older than thirty days. An image
+# published under a commit stays. Mounted here because only this repo's own
+# workflow token may delete versions of the packages it published. Managed by
+# copier: edit the preset (plexus-ms/preset-repo-web), never this file.
+
+on:
+  schedule:
+    - cron: '41 4 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Only list what would be deleted
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  housekeeping:
+    uses: plexus-ms/primitives/.github/workflows/_housekeeping.yml@b2-shape
+    with:
+      primitives-ref: b2-shape # TRIAL
+      strategy: ${{ vars.CI_STRATEGY || 'github' }}
+      registry: ghcr
+      dry-run: ${{ inputs.dry_run || false }}
