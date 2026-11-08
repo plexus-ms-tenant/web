@@ -1,0 +1,52 @@
+name: on_pr
+
+# A pull request asks "is the repo sound" (§ 2 PLX-Delivery), tested as the
+# merge result: `check` (lint, typecheck and the pure tests), and behind it
+# `verify`: every app's image is built and tested, from content hashes, so
+# what the registry already holds is neither built nor tested again. Nothing
+# is published or deployed. A change to nothing but Markdown starts nothing.
+# Managed by copier: edit the preset (plexus-ms/preset-repo-web), never this
+# file.
+#
+# One secret, OP_SERVICE_ACCOUNT_TOKEN, the CI vault's service account token;
+# everything else is read from the vault <owner>-ci (§ 3 PLX-Secrets).
+#
+# Where the jobs run is this repo's answer `ci_strategy` (§ 8 PLX-Delivery):
+# github. The repo variable CI_STRATEGY overrides it without a commit;
+# `github` there is the way back to the forge's runners while a runner host
+# is down.
+# The candidates live in `ci_registry`: ghcr.
+
+on:
+  pull_request:
+    paths-ignore: ['**/*.md']
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
+
+# A newer push to the pull request cancels the run still going for the older
+# commit, whose verdict nobody waits for any more.
+concurrency:
+  group: on_pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.111.0
+    with:
+      strategy: ${{ vars.CI_STRATEGY || 'github' }}
+      turbo-cache: false
+    secrets:
+      op-service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+  verify:
+    needs: check
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.111.0
+    with:
+      strategy: ${{ vars.CI_STRATEGY || 'github' }}
+      registry: ghcr
+      alerts-email: ''
+    secrets:
+      op-service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
