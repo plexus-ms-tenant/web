@@ -28,16 +28,15 @@ permissions:
   contents: write
   pull-requests: write
 
-# Where the jobs run: see pipeline.yml.
+# Where the jobs run: see on_pr.yml.
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.110.0
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.111.0
     with:
       train: ${{ inputs.train || '' }}
       app_id: ${{ vars.PLX_APP_ID }}
-      runner: ${{ vars.CI_RUNNER || 'ubuntu-latest' }}
-      persistent: ${{ vars.CI_RUNNER_PERSISTENT == 'true' }}
+      strategy: ${{ vars.CI_STRATEGY || 'github' }}
     secrets:
       app_private_key: ${{ secrets.PLX_APP_PRIVATE_KEY }}
 
