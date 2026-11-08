@@ -13,10 +13,10 @@ copier = { version = "latest", uvx = true } # template management
 # plexus-ms/primitives at the train number and pinned by the train, never by
 # the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.111.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.112.0", allow_low_downloads = true }
 # plx-ci: the CI verbs, plan, build, test and publish (§ 8 PLX-Delivery), the
 # same package family at the same train number.
-"npm:@plexus-ms/cli-ci" = { version = "0.111.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli-ci" = { version = "0.112.0", allow_low_downloads = true }
 
 [settings]
 # Not a version source: node is pinned in [tools]. It makes package.json one of
