@@ -6,7 +6,7 @@ name: update
 # copier update at every site, the marker, the lockfile, the workflow refs. The
 # same pull request the maintainers' `plx ship` opens; whichever arrives first
 # opens it, and a branch already on origin is left alone. Managed by copier:
-# edit the preset (plexus-ms/preset-repo-web), never this file.
+# edit the preset (plexus-ms/preset-repo-turbo), never this file.
 #
 # The push and the pull request need an identity of the tenant's own: a GitHub
 # App installed on this repo with contents and pull requests write, its ID in
@@ -32,7 +32,7 @@ permissions:
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.113.0
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.114.0
     with:
       train: ${{ inputs.train || '' }}
       app_id: ${{ vars.PLX_APP_ID }}
