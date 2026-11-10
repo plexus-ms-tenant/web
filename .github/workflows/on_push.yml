@@ -41,7 +41,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.116.0
+    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.117.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
@@ -53,7 +53,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.116.0
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.117.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
@@ -64,7 +64,7 @@ jobs:
 
   release:
     needs: verify
-    uses: plexus-ms/primitives/.github/workflows/_release.yml@0.116.0
+    uses: plexus-ms/primitives/.github/workflows/_release.yml@0.117.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
