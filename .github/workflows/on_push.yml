@@ -3,12 +3,12 @@ name: on_push
 # A push to an environment branch asks "may this ship" (§§ 2 and 3
 # PLX-Delivery): `check`, then `verify` (every app's image built and tested,
 # from content hashes), then `release`: the tested images are published
-# under the commit and deployed where the platform repo's inventory places
+# under the commit and deployed where the operations repo's inventory places
 # each app in the branch's environment, main in production and develop in
 # staging. A promotion never builds: a commit whose images the registry
 # holds is published from them and deployed. Run it by hand on an
 # environment branch to deploy that branch again. Managed by copier: edit
-# the preset (plexus-ms/preset-repo-web), never this file.
+# the preset (plexus-ms/preset-repo-turbo), never this file.
 #
 # One secret, OP_SERVICE_ACCOUNT_TOKEN, the CI vault's service account token;
 # everything else is read from the vault <owner>-ci (§ 3 PLX-Secrets).
@@ -41,7 +41,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.113.0
+    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.114.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
@@ -53,7 +53,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.113.0
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.114.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
@@ -64,9 +64,8 @@ jobs:
 
   release:
     needs: verify
-    uses: plexus-ms/primitives/.github/workflows/_release.yml@0.113.0
+    uses: plexus-ms/primitives/.github/workflows/_release.yml@0.114.0
     with:
-      tenant: plexus
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
       overlay: none

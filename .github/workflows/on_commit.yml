@@ -3,7 +3,7 @@ name: on_commit
 # A push to a branch that is no environment branch (§ 2 PLX-Delivery): `check`
 # alone, lint, typecheck and the pure tests. Nothing is built before the
 # branch has a pull request. A change to nothing but Markdown starts nothing.
-# Managed by copier: edit the preset (plexus-ms/preset-repo-web), never this
+# Managed by copier: edit the preset (plexus-ms/preset-repo-turbo), never this
 # file.
 #
 # Where the jobs run is this repo's answer `ci_strategy` (§ 8 PLX-Delivery):
@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   check:
-    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.113.0
+    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.114.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
