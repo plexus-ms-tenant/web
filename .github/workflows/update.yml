@@ -36,7 +36,7 @@ permissions:
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.117.0
+    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.119.0
     with:
       train: ${{ inputs.train || '' }}
       now: ${{ github.event_name == 'workflow_dispatch' }}

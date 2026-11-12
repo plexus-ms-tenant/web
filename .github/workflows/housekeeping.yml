@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   housekeeping:
-    uses: plexus-ms/primitives/.github/workflows/_housekeeping.yml@0.117.0
+    uses: plexus-ms/primitives/.github/workflows/_housekeeping.yml@0.119.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
