@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   check:
-    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.117.0
+    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.119.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
@@ -43,7 +43,7 @@ jobs:
 
   verify:
     needs: check
-    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.117.0
+    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.119.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
