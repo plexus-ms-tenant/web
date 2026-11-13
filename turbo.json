@@ -3,12 +3,24 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "!**/{README,AGENTS,PLEXUS}.md", "!.copier-answers.yml", "!docs/**", "!docker/compose*.yaml"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!**/{README,AGENTS,PLEXUS}.md",
+        "!.copier-answers.yml",
+        "!docs/**",
+        "!docker/compose*.yaml"
+      ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "check": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "!**/{README,AGENTS,PLEXUS}.md", "!.copier-answers.yml", "!docs/**", "!docker/compose*.yaml"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!**/{README,AGENTS,PLEXUS}.md",
+        "!.copier-answers.yml",
+        "!docs/**",
+        "!docker/compose*.yaml"
+      ]
     },
     "test": {
       "dependsOn": ["build"],
