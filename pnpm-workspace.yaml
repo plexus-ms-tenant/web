@@ -10,9 +10,9 @@ catalog:
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@plexus-ms/*"
-# The train-versioned packages (§ 1.6 PLX), pinned once for the whole workspace: every
-# manifest says `catalog:plexus`, and the train writes the version (§ 1 PLX-Updates);
-# the update bot leaves it alone.
+# The initiative's own libraries (plexus-ms/libraries), one range for the whole workspace:
+# every manifest says `catalog:plexus`, and the update bot moves the range like that of
+# any dependency (§ 2 PLX-Updates). The template states it once and never rewrites it.
 catalogs:
   plexus:
-    "@plexus-ms/config": 0.119.0
+    "@plexus-ms/config": ^0.120.0

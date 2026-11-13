@@ -10,13 +10,13 @@ uv = "latest" # required for copier
 copier = { version = "latest", uvx = true } # template management
 # plx: the ops verbs the reusable workflows mount — deploy-targets, deploy
 # (§ 6 PLX-Delivery). The initiative's own package, published from
-# plexus-ms/primitives at the train number and pinned by the train, never by
-# the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
+# plexus-ms/tooling at the Plexus version; the pin is written with each
+# version, never by the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.119.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.120.0", allow_low_downloads = true }
 # plx-ci: the CI verbs, plan, build, test and publish (§ 8 PLX-Delivery), the
-# same package family at the same train number.
-"npm:@plexus-ms/cli-ci" = { version = "0.119.0", allow_low_downloads = true }
+# same package family at the same Plexus version.
+"npm:@plexus-ms/cli-ci" = { version = "0.120.0", allow_low_downloads = true }
 
 [settings]
 # Not a version source: node is pinned in [tools]. It makes package.json one of
@@ -63,7 +63,7 @@ run = [
 ]
 
 # The ops side — playbooks, inventory, secrets pointers — is not here: it lives
-# in the tenant's operations repo (§ 3 PLX-Tenancy), generated from plexus-ms/preset-repo-operations.
+# in the tenant's operations repo (§ 3 PLX-Tenancy), generated from plexus-ms/template-repo-operations.
 
 # Propagation tasks
 

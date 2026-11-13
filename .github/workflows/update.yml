@@ -1,16 +1,16 @@
 name: update
 
-# Mounts the update verb (§ 3 PLX-Updates): this repo takes the train itself,
+# Mounts the update verb (§ 3 PLX-Updates): this repo takes the version itself,
 # when it needs one and not whenever one is cut. Once a day `plx update` asks
-# for the trains and takes the newest only when the oldest one this repo has
+# for the versions and takes the newest only when the oldest one this repo has
 # not taken is older than the backstop age: the answer update_max_age in
 # .copier-answers.yml, in days (30 unless it says otherwise, 0 for every
-# train). Until then the repo rests, and the run says why and ends green. Run
-# by hand, the workflow is somebody asking: it takes the newest train, or the
-# one named, at once. Taking a train is a pull request on plexus/<version>:
+# version). Until then the repo rests, and the run says why and ends green. Run
+# by hand, the workflow is somebody asking: it takes the newest version, or the
+# one named, at once. Taking a version is a pull request on plexus/<version>:
 # copier update at every site, the marker, the lockfile, the workflow refs; a
-# branch already on origin is left alone. Managed by copier: edit the preset
-# (plexus-ms/preset-repo-turbo), never this file.
+# branch already on origin is left alone. Managed by copier: edit the template
+# (plexus-ms/template-repo-turbo), never this file.
 #
 # The push and the pull request need an identity of the tenant's own: a GitHub
 # App installed on this repo with contents and pull requests write, its ID in
@@ -23,8 +23,8 @@ on:
     - cron: '23 6 * * *'
   workflow_dispatch:
     inputs:
-      train:
-        description: "The train to take (default: the newest)"
+      version:
+        description: "The version to take (default: the newest)"
         required: false
         default: ''
 
@@ -36,9 +36,9 @@ permissions:
 jobs:
   update:
     if: ${{ vars.PLX_APP_ID != '' }}
-    uses: plexus-ms/primitives/.github/workflows/_update.yml@0.119.0
+    uses: plexus-ms/tooling/.github/workflows/_update.yml@0.120.0
     with:
-      train: ${{ inputs.train || '' }}
+      version: ${{ inputs.version || '' }}
       now: ${{ github.event_name == 'workflow_dispatch' }}
       app_id: ${{ vars.PLX_APP_ID }}
       strategy: ${{ vars.CI_STRATEGY || 'github' }}

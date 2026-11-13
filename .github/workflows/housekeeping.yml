@@ -5,7 +5,7 @@ name: housekeeping
 # test-<hash> alone, go when they are older than thirty days. An image
 # published under a commit stays. Mounted here because only this repo's own
 # workflow token may delete versions of the packages it published. Managed by
-# copier: edit the preset (plexus-ms/preset-repo-turbo), never this file.
+# copier: edit the template (plexus-ms/template-repo-turbo), never this file.
 
 on:
   schedule:
@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   housekeeping:
-    uses: plexus-ms/primitives/.github/workflows/_housekeeping.yml@0.119.0
+    uses: plexus-ms/tooling/.github/workflows/_housekeeping.yml@0.120.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
