@@ -5,7 +5,7 @@ name: on_pr
 # `verify`: every app's image is built and tested, from content hashes, so
 # what the registry already holds is neither built nor tested again. Nothing
 # is published or deployed. A change to nothing but Markdown starts nothing.
-# Managed by copier: edit the preset (plexus-ms/preset-repo-turbo), never this
+# Managed by copier: edit the template (plexus-ms/template-repo-turbo), never this
 # file.
 #
 # One secret, OP_SERVICE_ACCOUNT_TOKEN, the CI vault's service account token;
@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   check:
-    uses: plexus-ms/primitives/.github/workflows/_check.yml@0.119.0
+    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.120.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
@@ -43,7 +43,7 @@ jobs:
 
   verify:
     needs: check
-    uses: plexus-ms/primitives/.github/workflows/_verify.yml@0.119.0
+    uses: plexus-ms/tooling/.github/workflows/_verify.yml@0.120.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
