@@ -169,8 +169,8 @@ catalogs:
       version: 6.0.3
   plexus:
     '@plexus-ms/config':
-      specifier: 0.119.0
-      version: 0.119.0
+      specifier: ^0.120.0
+      version: 0.120.0
 
 importers:
 
@@ -181,7 +181,7 @@ importers:
         version: 2.6.4
       '@plexus-ms/config':
         specifier: catalog:plexus
-        version: 0.119.0
+        version: 0.120.0
       turbo:
         specifier: ^2.11.10
         version: 2.11.10
@@ -230,7 +230,7 @@ importers:
     devDependencies:
       '@plexus-ms/config':
         specifier: catalog:plexus
-        version: 0.119.0
+        version: 0.120.0
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.5
@@ -670,8 +670,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@plexus-ms/config@0.119.0':
-    resolution: {integrity: sha512-oZ/+gj7ra+TbU2IK7Q5qMPiBz5Pp/HlIhbM3e+E5fJ5nEZABh+sVwLX2cbz/rfcAyYYfEdf3RItDeDI5pYhOUQ==}
+  '@plexus-ms/config@0.120.0':
+    resolution: {integrity: sha512-ls1xQimlVE3l7n9bxtLUKnMLeE3tPmbt5gfmKjjCMvYHVlWkBB7uLRjt174Wrhd2sxPX/KTxwD+dLSZyBL2P1g==}
 
   '@plexus-ms/std@0.2.2':
     resolution: {integrity: sha512-7xFvS0rk07lhVgnuoNVCg4znsUc1BH31pRmtxtMaW5DPeylmvuj+tX/TS78CdFGb5C5aZ41OECg/nKJRt9MHkw==}
@@ -2307,7 +2307,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.4.4':
     optional: true
 
-  '@plexus-ms/config@0.119.0': {}
+  '@plexus-ms/config@0.120.0': {}
 
   '@plexus-ms/std@0.2.2':
     dependencies:
