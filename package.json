@@ -1,10 +1,10 @@
 {
   "name": "plexus",
   "private": true,
-  "packageManager": "pnpm@12.16.1",
+  "packageManager": "pnpm@12.21.0",
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.7",
     "@plexus-ms/config": "catalog:plexus",
-    "turbo": "^2.11.10"
+    "turbo": "^2.11.11"
   }
 }
