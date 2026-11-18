@@ -1,6 +1,6 @@
 # @plexus-ms/brand
 
-The Plexus visual identity as a versioned dependency: the PLX-02 "Crossing" mark,
+The Plexus visual identity as a versioned dependency: the Crossing mark,
 design tokens, and React components. The human-readable spec lives in the
 compendium at [`miscellaneous/brand`](https://github.com/plexus-ms/compendium/tree/main/miscellaneous/brand);
 this package is the machine-readable source of truth for assets.

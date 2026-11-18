@@ -23,7 +23,7 @@ export type MarkProps = {
   className?: string;
 };
 
-/** PLX-02 "The Crossing" — two strands crossing once, the rising one over. */
+/** The Crossing mark — two strands crossing once, the rising one over. */
 export function Mark({ size = 32, variant = 'ink', title, className }: MarkProps) {
   const strokeWidth = size < 24 ? 9 : 7;
   const cut = crossing.descendingCut[strokeWidth];
