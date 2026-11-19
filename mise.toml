@@ -13,10 +13,10 @@ copier = { version = "latest", uvx = true } # template management
 # plexus-ms/tooling at the Plexus version; the pin is written with each
 # version, never by the update bot (§ 1 PLX-Updates); the trust-policy approval only waives
 # npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.121.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.123.0", allow_low_downloads = true }
 # plx-ci: the CI verbs, plan, build, test and publish (§ 8 PLX-Delivery), the
 # same package family at the same Plexus version.
-"npm:@plexus-ms/cli-ci" = { version = "0.121.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli-ci" = { version = "0.123.0", allow_low_downloads = true }
 
 [settings]
 # Not a version source: node is pinned in [tools]. It makes package.json one of
@@ -40,7 +40,7 @@ _.path = ["{{config_root}}/node_modules/.bin"]
 description = "Promote staging to prod: fast-forward main to what is on develop (§ 3 PLX-Delivery); refused unless it is a fast-forward"
 run = 'git fetch -q origin && git push origin origin/develop:refs/heads/main'
 
-# Contract verbs
+# Contract verbs (§ 3 PLX-Repo)
 
 [tasks.dev]
 depends = ["install"]
@@ -48,28 +48,28 @@ description = "Prepare a development environment and start it"
 usage = 'arg "[app]" help="App to start (e.g. my-app, defaults to all)"'
 run = 'turbo run dev ${usage_app:+--filter=./apps/$usage_app}'
 
+[tasks.build]
+depends = ["install"]
+description = "Build the production artifacts, an app after the workspace packages it depends on"
+# The image build runs the same build scripts inside docker/Dockerfile (PLX-App/Dockerfile).
+usage = 'arg "[app]" help="App to build (e.g. my-app, defaults to all)"'
+run = 'turbo run build ${usage_app:+--filter=./apps/$usage_app}'
+
 [tasks.verify]
 description = "Perform all steps that verify code quality"
 # The one verb the pipeline mounts (§ 1 PLX-Delivery) — it knows this name and
 # no other. An optional scope forwards to check/test so a pipeline leg can
-# path-scope to one app plus its dependency packages (§ 3 PLX-Delivery); lint
-# stays cheap and repo-wide. lint, check and test are the sub-verbs of § 3
-# PLX-Repo: lint on pre-commit, check on pre-push, test here.
+# path-scope to one app plus its dependency packages (§ 3 PLX-Delivery); lint,
+# inside check, stays cheap and repo-wide. lint, check and test are the
+# sub-verbs of § 3 PLX-Repo: lint on pre-commit, check on pre-push, test here.
 usage = 'arg "[scope]" help="App or package to verify (e.g. apps/my-app, defaults to all)"'
 run = [
-    'mise run lint',
     'mise run check ${usage_scope:+"$usage_scope"}',
     'mise run test ${usage_scope:+"$usage_scope"}',
 ]
 
 # The ops side — playbooks, inventory, secrets pointers — is not here: it lives
 # in the tenant's operations repo (§ 3 PLX-Tenancy), generated from plexus-ms/template-repo-operations.
-
-# Propagation tasks
-
-[tasks.sync]
-description = "Update the project to the latest template version with Copier"
-run = "copier update --trust"
 
 # Internal / hidden tasks
 
@@ -92,9 +92,9 @@ run = 'eval "set -- $usage_paths"; biome check ${usage_write:+--write} --no-erro
 
 [tasks.check]
 depends = ["install"]
-description = "Run static checks on the codebase"
+description = "Run static checks on the codebase: lint, repo-wide, then each project's check script"
 usage = 'arg "[package]" help="App or package to check (e.g. apps/my-app, defaults to all)"'
-run = ['turbo run check ${usage_package:+--filter=./$usage_package}']
+run = ['mise run lint', 'turbo run check ${usage_package:+--filter=./$usage_package}']
 
 [tasks.test]
 depends = ["install"]

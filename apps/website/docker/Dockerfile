@@ -30,6 +30,9 @@ RUN pnpm fetch
 COPY turbo.json ./
 COPY packages packages
 COPY apps/${APP} apps/${APP}
+# public/ is optional and not part of Next's standalone output; an empty one
+# lets the runner copy it unconditionally.
+RUN mkdir -p apps/${APP}/public
 RUN pnpm install --frozen-lockfile --prefer-offline
 # Build the app with pnpm, not through Turbo: the context may hold this app
 # alone, and Turbo's strict environment would hide BUILD_HASH and the key
@@ -56,9 +59,11 @@ ENV NODE_ENV=production
 # └── apps
 #     └── ${APP}
 #         ├── .next       # while not using a separate CDN, static files need to go here
+#         ├── public      # likewise, copied in beside the standalone output
 #         └── server.js
 COPY --from=builder --chown=node:node /repo/apps/${APP}/.next/standalone ./
 COPY --from=builder --chown=node:node /repo/apps/${APP}/.next/static ./apps/${APP}/.next/static
+COPY --from=builder --chown=node:node /repo/apps/${APP}/public ./apps/${APP}/public
 # Startup
 WORKDIR /repo/apps/${APP}
 USER node

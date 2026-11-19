@@ -1,9 +1,3 @@
-# A stateful app (PLX-AppStateful) adds its data services below and keeps
-# their data in named volumes (a top-level `volumes:` block), never in
-# bind-mounted ./data/<service> directories: a bind mount's first start makes
-# Docker create the directory as root, which an image running unprivileged
-# cannot write, while a named volume takes the ownership of the image's mount
-# point and needs no chown on the host (§ 1 PLX-AppStateful).
 services:
   web:
     # Pinned by the deploy verb when it renders this file onto the host
@@ -29,6 +23,13 @@ services:
       - "127.0.0.1:${PLEXUS_LOOPBACK_PORT}:3000"
     labels:
       plexus.tenant: plexus
+    # The deploy verb waits for this check to report healthy and rolls back
+    # when it does not (§ 5 PLX-App). During start_period it runs every
+    # start_interval, so a fresh container is seen healthy within a second of
+    # being able to serve; start_period spans the deploy's wait.
+    # start_interval needs Docker Engine 25.0 and Compose 2.20.2 or later.
+    # /healthz is a route the app serves itself; the proxy refuses the path
+    # from outside (PLX-Ingress).
     healthcheck:
       test:
         - CMD
@@ -38,4 +39,5 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 10s
+      start_period: 60s
+      start_interval: 1s
