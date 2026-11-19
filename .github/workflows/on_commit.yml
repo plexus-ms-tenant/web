@@ -1,15 +1,7 @@
 name: on_commit
 
-# A push to a branch that is no environment branch (§ 2 PLX-Delivery): `check`
-# alone, lint, typecheck and the pure tests. Nothing is built before the
-# branch has a pull request. A change to nothing but Markdown starts nothing.
-# Managed by copier: edit the template (plexus-ms/template-repo-turbo), never this
-# file.
-#
-# Where the jobs run is this repo's answer `ci_strategy` (§ 8 PLX-Delivery):
-# github. The repo variable CI_STRATEGY overrides it without a commit;
-# `github` there is the way back to the forge's runners while a runner host
-# is down.
+# Generated from plexus-ms/template-repo-turbo: edit the template, never this file.
+# An app repo's mount for a push to any other branch, check alone (§ 2 PLX-Delivery).
 
 on:
   push:
@@ -19,14 +11,13 @@ on:
 permissions:
   contents: read
 
-# A newer push cancels the check still going for the older commit.
 concurrency:
   group: on_commit-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   check:
-    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.123.0
+    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.124.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false

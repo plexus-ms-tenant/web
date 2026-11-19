@@ -1,9 +1,4 @@
-# deps
 node_modules
-
-# turbo
 .turbo
-
-# misc
 .DS_Store
 *.pem

@@ -1,35 +1,18 @@
 services:
   web:
-    # Pinned by the deploy verb when it renders this file onto the host
-    # (§ 3 PLX-App); the message below is what compose prints if the unrendered
-    # file is run.
     image: ${PLEXUS_DEPLOYMENT_IMAGE:?rendered by the deploy verb}
     restart: unless-stopped
     environment:
       NODE_ENV: production
-    # The environment the platform provides (§ 3 PLX-App, PLX-Secrets): .env holds the
-    # non-secret values from the inventory's apps[].env plus the reserved
-    # PLEXUS_* bindings (harmless inside the container), .env.secret the
-    # vault-resolved secrets. Optional so the same file runs in local dev.
     env_file:
       - path: .env
         required: false
       - path: .env.secret
         required: false
     ports:
-      # Loopback port from .env (§ 4 PLX-App) — assigned by the platform from the
-      # tenant's inventory, never hardcoded. No fallback: a missing binding
-      # fails loudly. Container port stays 3000 (the app's own concern).
       - "127.0.0.1:${PLEXUS_LOOPBACK_PORT}:3000"
     labels:
       plexus.tenant: plexus
-    # The deploy verb waits for this check to report healthy and rolls back
-    # when it does not (§ 5 PLX-App). During start_period it runs every
-    # start_interval, so a fresh container is seen healthy within a second of
-    # being able to serve; start_period spans the deploy's wait.
-    # start_interval needs Docker Engine 25.0 and Compose 2.20.2 or later.
-    # /healthz is a route the app serves itself; the proxy refuses the path
-    # from outside (PLX-Ingress).
     healthcheck:
       test:
         - CMD
