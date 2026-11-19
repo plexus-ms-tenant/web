@@ -1,11 +1,7 @@
 name: housekeeping
 
-# The daily housekeeping of this repo's CI (§ 8 PLX-Delivery): the candidates
-# its runs leave in the forge's registry, the images tagged build-<hash> and
-# test-<hash> alone, go when they are older than thirty days. An image
-# published under a commit stays. Mounted here because only this repo's own
-# workflow token may delete versions of the packages it published. Managed by
-# copier: edit the template (plexus-ms/template-repo-turbo), never this file.
+# Generated from plexus-ms/template-repo-turbo: edit the template, never this file.
+# The retention of the candidates this repo leaves in the forge's registry (§ 8 PLX-Delivery).
 
 on:
   schedule:
@@ -19,11 +15,12 @@ on:
 
 permissions:
   contents: read
+  # Mounted here, not in the operations repo: only this repo's own token may delete versions of its packages.
   packages: write
 
 jobs:
   housekeeping:
-    uses: plexus-ms/tooling/.github/workflows/_housekeeping.yml@0.123.0
+    uses: plexus-ms/tooling/.github/workflows/_housekeeping.yml@0.124.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr

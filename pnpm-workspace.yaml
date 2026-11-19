@@ -5,14 +5,11 @@ allowBuilds:
   sharp: true
 catalog:
   typescript: ^6.0.3
-# A third-party release is installable three days after it is published (§ 2 PLX-Updates);
-# the shared Renovate preset waits the same three days before proposing it.
+# Three days, the release age the shared Renovate preset waits as well (§ 2 PLX-Updates).
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@plexus-ms/*"
-# The initiative's own libraries (plexus-ms/libraries), one range for the whole workspace:
-# every manifest says `catalog:plexus`, and the update bot moves the range like that of
-# any dependency (§ 2 PLX-Updates). The template states it once and never rewrites it.
+# The one range of the initiative's libraries: the update bot moves it, the template never rewrites it.
 catalogs:
   plexus:
     "@plexus-ms/config": ^0.120.0

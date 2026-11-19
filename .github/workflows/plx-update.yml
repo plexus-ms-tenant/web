@@ -1,14 +1,7 @@
 name: plx-update
 
-# Mounts the update verb (§ 3 PLX-Updates): `plx update` takes a patch at once, a
-# minor once the oldest version not taken is update_max_age days old, a major only
-# when asked. Managed by copier: edit the template (plexus-ms/template-repo-turbo).
-#
-# The push and the pull request are made as the tenant's GitHub App, the one
-# its CI uses (§ 8 PLX-Delivery). Its credentials are the variable GH_CLIENT_ID
-# and the secret GH_PRIVATE_KEY, of the repo or the organisation, or, without
-# them, the item github-app in the CI vault, read with the secret
-# OP_SERVICE_ACCOUNT_TOKEN. A repo that has neither fails here and says so.
+# Generated from plexus-ms/template-repo-turbo: edit the template, never this file.
+# Mounts the update verb, `plx update` (§ 3 PLX-Updates).
 
 on:
   schedule:
@@ -23,10 +16,9 @@ on:
 permissions:
   contents: read
 
-# Where the jobs run: see on_pr.yml.
 jobs:
   update:
-    uses: plexus-ms/tooling/.github/workflows/_plx-update.yml@0.123.0
+    uses: plexus-ms/tooling/.github/workflows/_plx-update.yml@0.124.0
     with:
       version: ${{ inputs.version || '' }}
       now: ${{ github.event_name == 'workflow_dispatch' }}
