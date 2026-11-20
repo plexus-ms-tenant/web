@@ -19,7 +19,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.124.0
+    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.128.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       turbo-cache: false
@@ -31,7 +31,7 @@ jobs:
     concurrency:
       group: on_push-verify-${{ github.ref }}
       cancel-in-progress: true
-    uses: plexus-ms/tooling/.github/workflows/_verify.yml@0.124.0
+    uses: plexus-ms/tooling/.github/workflows/_verify.yml@0.128.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr
@@ -42,7 +42,7 @@ jobs:
 
   release:
     needs: verify
-    uses: plexus-ms/tooling/.github/workflows/_release.yml@0.124.0
+    uses: plexus-ms/tooling/.github/workflows/_release.yml@0.128.0
     with:
       strategy: ${{ vars.CI_STRATEGY || 'github' }}
       registry: ghcr

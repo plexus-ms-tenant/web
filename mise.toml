@@ -6,15 +6,13 @@ config_roots = ["apps/*", "packages/*"]
 [tools]
 node = "24"
 hk = "latest"
-# mise's Python keeps the uv tools' environments inside the cached data directory; it must satisfy
-# every uv tool's Python requirement, and after changing it reinstall them (`mise install -f <tool>`).
 python = "3.14"
 uv = "latest"
 copier = { version = "latest", uvx = true }
 # The plx pins are written with each Plexus version, never by the update bot (§ 1 PLX-Updates);
 # allow_low_downloads only waives npm's young-package heuristics.
-"npm:@plexus-ms/cli" = { version = "0.124.0", allow_low_downloads = true }
-"npm:@plexus-ms/cli-ci" = { version = "0.124.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli" = { version = "0.128.0", allow_low_downloads = true }
+"npm:@plexus-ms/cli-ci" = { version = "0.128.0", allow_low_downloads = true }
 
 [settings]
 # Not a version source: it lets config_roots match a project without a mise config of its own,
@@ -35,21 +33,49 @@ run = 'git fetch -q origin && git push origin origin/develop:refs/heads/main'
 [tasks.dev]
 depends = ["install"]
 description = "Prepare a development environment and start it"
-usage = 'arg "[app]" help="App to start (e.g. my-app, defaults to all)"'
-run = 'turbo run dev ${usage_app:+--filter=./apps/$usage_app}'
+usage = 'arg "[name]" help="App or package to start, by its directory name under apps/ or packages/ (e.g. my-app, defaults to all)"'
+run = '''
+dir=
+if [ -n "${usage_name:-}" ]; then
+  case $usage_name in
+    */* | . | ..) echo "dev: $usage_name is not a directory name under apps/ or packages/" >&2; exit 1 ;;
+  esac
+  for root in apps packages; do
+    [ -f "$root/$usage_name/package.json" ] || continue
+    [ -z "$dir" ] || { echo "dev: $usage_name is both apps/$usage_name and packages/$usage_name; rename one to scope by name" >&2; exit 1; }
+    dir=$root/$usage_name
+  done
+  [ -n "$dir" ] || { echo "dev: no app or package $usage_name under apps/ or packages/" >&2; exit 1; }
+fi
+turbo run dev ${dir:+--filter="./$dir"}
+'''
 
 [tasks.build]
 depends = ["install"]
 description = "Build the production artifacts, an app after the workspace packages it depends on"
-usage = 'arg "[app]" help="App to build (e.g. my-app, defaults to all)"'
-run = 'turbo run build ${usage_app:+--filter=./apps/$usage_app}'
+usage = 'arg "[name]" help="App or package to build, by its directory name under apps/ or packages/ (e.g. my-app, defaults to all)"'
+run = '''
+dir=
+if [ -n "${usage_name:-}" ]; then
+  case $usage_name in
+    */* | . | ..) echo "build: $usage_name is not a directory name under apps/ or packages/" >&2; exit 1 ;;
+  esac
+  for root in apps packages; do
+    [ -f "$root/$usage_name/package.json" ] || continue
+    [ -z "$dir" ] || { echo "build: $usage_name is both apps/$usage_name and packages/$usage_name; rename one to scope by name" >&2; exit 1; }
+    dir=$root/$usage_name
+  done
+  [ -n "$dir" ] || { echo "build: no app or package $usage_name under apps/ or packages/" >&2; exit 1; }
+fi
+turbo run build ${dir:+--filter="{./$dir}..."}
+'''
 
 [tasks.verify]
 description = "Perform all steps that verify code quality"
-usage = 'arg "[scope]" help="App or package to verify (e.g. apps/my-app, defaults to all)"'
+usage = 'arg "[name]" help="App or package to verify, by its directory name under apps/ or packages/ (e.g. my-app, defaults to all)"'
 run = [
-    'mise run check ${usage_scope:+"$usage_scope"}',
-    'mise run test ${usage_scope:+"$usage_scope"}',
+    'mise run check ${usage_name:+"$usage_name"}',
+    'mise run test ${usage_name:+"$usage_name"}',
 ]
 
 [tasks.install]
@@ -72,11 +98,41 @@ run = 'eval "set -- $usage_paths"; biome check ${usage_write:+--write} --no-erro
 [tasks.check]
 depends = ["install"]
 description = "Run static checks on the codebase: lint and the contracts' checks (plx doctor), repo-wide, then each project's check script"
-usage = 'arg "[package]" help="App or package to check (e.g. apps/my-app, defaults to all)"'
-run = ['mise run lint', 'plx doctor', 'turbo run check ${usage_package:+--filter=./$usage_package}']
+usage = 'arg "[name]" help="App or package to check, by its directory name under apps/ or packages/ (e.g. my-app, defaults to all)"'
+run = '''
+dir=
+if [ -n "${usage_name:-}" ]; then
+  case $usage_name in
+    */* | . | ..) echo "check: $usage_name is not a directory name under apps/ or packages/" >&2; exit 1 ;;
+  esac
+  for root in apps packages; do
+    [ -f "$root/$usage_name/package.json" ] || continue
+    [ -z "$dir" ] || { echo "check: $usage_name is both apps/$usage_name and packages/$usage_name; rename one to scope by name" >&2; exit 1; }
+    dir=$root/$usage_name
+  done
+  [ -n "$dir" ] || { echo "check: no app or package $usage_name under apps/ or packages/" >&2; exit 1; }
+fi
+mise run lint
+plx doctor
+turbo run check ${dir:+--filter="{./$dir}..."}
+'''
 
 [tasks.test]
 depends = ["install"]
 description = "Run tests on the codebase"
-usage = 'arg "[package]" help="App or package to test (e.g. apps/my-app, defaults to all)"'
-run = 'turbo run test ${usage_package:+--filter=./$usage_package}'
+usage = 'arg "[name]" help="App or package to test, by its directory name under apps/ or packages/ (e.g. my-app, defaults to all)"'
+run = '''
+dir=
+if [ -n "${usage_name:-}" ]; then
+  case $usage_name in
+    */* | . | ..) echo "test: $usage_name is not a directory name under apps/ or packages/" >&2; exit 1 ;;
+  esac
+  for root in apps packages; do
+    [ -f "$root/$usage_name/package.json" ] || continue
+    [ -z "$dir" ] || { echo "test: $usage_name is both apps/$usage_name and packages/$usage_name; rename one to scope by name" >&2; exit 1; }
+    dir=$root/$usage_name
+  done
+  [ -n "$dir" ] || { echo "test: no app or package $usage_name under apps/ or packages/" >&2; exit 1; }
+fi
+turbo run test ${dir:+--filter="{./$dir}..."}
+'''

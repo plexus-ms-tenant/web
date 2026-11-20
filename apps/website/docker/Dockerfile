@@ -9,13 +9,15 @@ ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable
 # package.json comes along so that corepack runs the pnpm its packageManager pins.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm fetch
+# The npmrc secret is the token of the tenant's private package registry, for a repo that installs
+# from one (§ 5 PLX-Delivery); a build without the secret mounts nothing.
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm fetch
 COPY turbo.json ./
 COPY packages packages
 COPY apps/${APP} apps/${APP}
 # public/ is optional; an empty one lets the runner stage copy it unconditionally.
 RUN mkdir -p apps/${APP}/public
-RUN pnpm install --frozen-lockfile --prefer-offline
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile --prefer-offline
 # pnpm, not Turbo, whose strict environment would hide BUILD_HASH and the key from `next build`;
 # the filter's trailing `...` builds the app's workspace dependencies first, as `^build` would.
 ARG BUILD_HASH

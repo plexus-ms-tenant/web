@@ -4,12 +4,18 @@ packages:
 allowBuilds:
   sharp: true
 catalog:
+<<<<<<< before updating
   typescript: ^6.0.3
 # Three days, the release age the shared Renovate preset waits as well (§ 2 PLX-Updates).
+||||||| last update
+  typescript: ^6
+# Three days, the release age the shared Renovate preset waits as well (§ 2 PLX-Updates).
+=======
+  typescript: ^6
+>>>>>>> after updating
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@plexus-ms/*"
-# The one range of the initiative's libraries: the update bot moves it, the template never rewrites it.
 catalogs:
   plexus:
     "@plexus-ms/config": ^0.120.0
