@@ -4,15 +4,7 @@ packages:
 allowBuilds:
   sharp: true
 catalog:
-<<<<<<< before updating
   typescript: ^6.0.3
-# Three days, the release age the shared Renovate preset waits as well (§ 2 PLX-Updates).
-||||||| last update
-  typescript: ^6
-# Three days, the release age the shared Renovate preset waits as well (§ 2 PLX-Updates).
-=======
-  typescript: ^6
->>>>>>> after updating
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@plexus-ms/*"
