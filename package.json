@@ -3,8 +3,8 @@
   "private": true,
   "packageManager": "pnpm@12.21.0",
   "devDependencies": {
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.8",
     "@plexus-ms/config": "catalog:plexus",
-    "turbo": "^2.11.11"
+    "turbo": "^2.11.13"
   }
 }
