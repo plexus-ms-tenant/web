@@ -1,9 +1,10 @@
 # Maintained by Copier — NEVER EDIT MANUALLY.
-_commit: 0.128.0
+_commit: 0.129.1
 _src_path: gh:plexus-ms/template-repo-turbo
 ci_overlay: none
 ci_registry: ghcr
 ci_strategy: github
+display_versions: false
 pr_reviewers: davidjalbers
 private_packages_scope: ''
 publishes_packages: false

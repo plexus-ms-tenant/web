@@ -4,6 +4,10 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
+      # What the deployment says about itself, pinned by the deploy verb (PLX-Releases): the display version,
+      # where the repo has them, and the commit it was started from. Empty where none is handed over.
+      PLEXUS_DISPLAY_VERSION: ${PLEXUS_DISPLAY_VERSION:-}
+      PLEXUS_COMMIT_SHA: ${PLEXUS_COMMIT_SHA:-}
     env_file:
       - path: .env
         required: false
